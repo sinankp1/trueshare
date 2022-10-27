@@ -51,9 +51,13 @@ export default function LoginForm({ setVisible, visible }) {
   return (
     <div className="login_wrap">
       <div className="login_1">
-        <img src="../../icons/facebook.svg" alt="" />
+        <img
+          className="login_logo"
+          src="../../icons/trueshare_logo.png"
+          alt=""
+        />
         <span>
-          Facebook helps you connect and share with the people in your life.
+          Trueshare helps you connect and share with the people in your life.
         </span>
       </div>
       <div className="login_2">
@@ -74,7 +78,7 @@ export default function LoginForm({ setVisible, visible }) {
                 <LoginInput
                   type="text"
                   name="email"
-                  placeholder="Email address or phone number"
+                  placeholder="Email address"
                   onChange={handleLoginChange}
                 />
                 <LoginInput
@@ -87,7 +91,15 @@ export default function LoginForm({ setVisible, visible }) {
                 <button type="submit" className="blue_btn">
                   Log In
                 </button>
-                
+                <div className="loader_div">
+                  <FadeLoader
+                    color="#1876f2"
+                    loading={loading}
+                    size={150}
+                    aria-label="Loading Spinner"
+                    data-testid="loader"
+                  />
+                </div>
               </Form>
             )}
           </Formik>
@@ -104,13 +116,6 @@ export default function LoginForm({ setVisible, visible }) {
           >
             Create Account
           </button>
-          <FadeLoader
-                  color="#1876f2"
-                  loading={loading}
-                  size={150}
-                  aria-label="Loading Spinner"
-                  data-testid="loader"
-                />
         </div>
         <Link to="/" className="sign_extra">
           <b>Create a Page</b> for a celebrity, brand or business.

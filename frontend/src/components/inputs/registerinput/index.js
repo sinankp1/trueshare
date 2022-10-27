@@ -1,4 +1,4 @@
-import "./style.css";
+import "./style.scss";
 import { useField, ErrorMessage } from "formik";
 import { useMediaQuery } from "react-responsive";
 export default function RegisterInput({ placeholder, bottom, ...props }) {

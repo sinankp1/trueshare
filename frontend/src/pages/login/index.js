@@ -1,4 +1,4 @@
-import "./style.css";
+import "./style.scss";
 import LoginForm from "../../components/login/LoginForm";
 import Footer from "../../components/login/Footer";
 import RegisterForm from "../../components/login/RegisterForm";
