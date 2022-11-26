@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 * {
   padding: 0;
   margin: 0;
@@ -13,6 +17,7 @@ a {
   text-decoration: none;
   color: inherit;
 }
+
 :root {
   --bg-primary: #fff;
   --bg-secondary: #f0f2f5;
@@ -53,8 +58,44 @@ a {
   gap: 6px;
   cursor: pointer;
 }
+.light_blue_btn {
+  border: none;
+  outline: none;
+  background: var(--light-blue-color);
+  padding: 8.5px 12px;
+  border-radius: 7px;
+  font-family: inherit;
+  font-weight: 600;
+  font-size: 14px;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  cursor: pointer;
+}
+.gray_btn {
+  border: none;
+  outline: none;
+  background: var(--bg-secondary);
+  padding: 8.5px 12px;
+  border-radius: 7px;
+  font-family: inherit;
+  font-weight: 600;
+  font-size: 14px;
+  color: #111;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  cursor: pointer;
+}
+.blue_btn,
+.gray_btn span {
+  transform: translateY(-1px);
+}
 /*----Buttons----*/
-.blur {
+.blur1 {
   position: fixed;
   top: 0;
   left: 0;
@@ -62,4 +103,37 @@ a {
   bottom: 0;
   background: rgba(255, 255, 255, 0.768);
   z-index: 99;
+}
+
+
+.hover1:hover{
+  background: var(--bg-secondary);
+}
+.hover2:hover{
+  background:var(--bg-third)
+}
+.hover3:hover{
+  background:#d4d6da3a;
+}
+
+.scrollbar::-webkit-scrollbar{
+  width:8px;
+}
+
+.scrollbar::-webkit-scrollbar-thumb{
+  background: #cdcdcd;
+  border-radius: 5px;
+}
+
+.small_circle{
+  position:relative;
+  height: 36px;
+  width:36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 11px;
+  background: var(--bg-third);
+  cursor: pointer;
 }

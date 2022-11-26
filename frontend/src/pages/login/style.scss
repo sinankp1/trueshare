@@ -9,8 +9,9 @@ $color_5: var(--green-color);
     background: var(--bg-secondary);
 }
 .login_wrap {
-    height: 78vh;
+    height: 100vh;
 	color: $color_1;
+	padding-top: 15vh;
 }
 .login_1 {
     width: 300px;
@@ -281,6 +282,7 @@ $color_5: var(--green-color);
 		align-items: center;
 		max-width: 1000px;
 		margin: 0 auto;
+		padding-top: 0;
 	}
 	.login_1 {
         display: flex;

@@ -6,9 +6,7 @@ export default function RegisterInput({ placeholder, bottom, ...props }) {
   const view1 = useMediaQuery({
     query: "(min-width: 539px)",
   });
-  const view2 = useMediaQuery({
-    query: "(min-width: 850px)",
-  });
+ 
   const view3 = useMediaQuery({
     query: "(min-width: 1170px)",
   });
@@ -22,7 +20,7 @@ export default function RegisterInput({ placeholder, bottom, ...props }) {
           width: `${
             (view1 && field.name === "first_name") || field.name === "last_name"
               ? "100%"
-              : view1 && (field.name === "email" || field.name === "password")
+              : view1 && (field.name === "email" || field.name === "password" || field.name === "confirmPassword")
               ? "370px"
               : "300px"
           }`,

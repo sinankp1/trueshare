@@ -1,26 +1,24 @@
 const express = require("express");
 const { readdirSync } = require("fs");
+const logger = require("morgan")
 const app = express();
 const dotenv = require("dotenv");
+const fileupload = require("express-fileupload");
 app.use(express.json())
+app.use(logger("dev"))
 dotenv.config();
 const cors = require("cors");
-const mongoose = require("mongoose");
-const options = {
-  origin: "http://localhost:3000",
-};
+const { connect } = require("./config/connection");
 app.use(cors());
-
+app.use(fileupload({
+  useTempFiles:true,
+}))
 //routes
 readdirSync("./routes").map((r) => app.use("/", require("./routes/" + r)));
 
 //database
-mongoose
-.connect(process.env.DATABASE_URI, {
-  useNewUrlParser: true,
-})
-.then(() => console.log("database connected"))
-.catch((err) => console.log("mongoose connection error", err));
+connect();
+
 
 app.listen(process.env.PORT, () => {
   console.log("listening on port 8000");

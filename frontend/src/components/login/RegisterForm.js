@@ -1,14 +1,15 @@
-import {useNavigate} from "react-router-dom"
+import { useNavigate } from "react-router-dom";
 import { Form, Formik } from "formik";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import RegisterInput from "../inputs/registerinput";
 import * as Yup from "yup";
 import DateOfBirthSelect from "./DateOfBirthSelect";
 import GenderSelect from "./GenderSelect";
 import FadeLoader from "react-spinners/FadeLoader";
 import axios from "axios";
-import {useDispatch} from "react-redux"
-import Cookies from "js-cookie"
+import { useDispatch } from "react-redux";
+import Cookies from "js-cookie";
+import useClickOutSidde from "../../helpers/clickOutSide";
 const userInfos = {
   first_name: "",
   last_name: "",
@@ -18,8 +19,13 @@ const userInfos = {
   bMonth: new Date().getMonth(),
   bDay: new Date().getDate(),
   gender: "",
+  confirmPassword: "",
 };
-export default function RegisterForm({setVisible}) {
+export default function RegisterForm({ setVisible }) {
+  const el = useRef(null);
+  useClickOutSidde(el, () => {
+    setVisible(false);
+  });
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [user, setUser] = useState(userInfos);
@@ -37,6 +43,7 @@ export default function RegisterForm({setVisible}) {
     bMonth,
     bDay,
     gender,
+    confirmPassword,
   } = user;
   const handleRegisterChange = (e) => {
     const { name, value } = e.target;
@@ -55,10 +62,17 @@ export default function RegisterForm({setVisible}) {
       .matches(/^[aA-zZ]+$/, "Number and special characters are not allowed"),
     email: Yup.string().required().email(),
     password: Yup.string().required().min(6).max(40),
+    confirmPassword: Yup.string().test(
+      "passwords-match",
+      "Passwords must match",
+      function (value) {
+        return this.parent.password === value;
+      }
+    ),
   });
   const registerSubmit = async () => {
     try {
-      setLoading(true)
+      setLoading(true);
       const { data } = await axios.post(
         `${process.env.REACT_APP_BACKEND_URL}/register`,
         {
@@ -72,13 +86,13 @@ export default function RegisterForm({setVisible}) {
           gender,
         }
       );
-      setError("")
+      setError("");
       setSuccess(data.message);
-      const {message,...rest} = data;
+      const { message, ...rest } = data;
       setTimeout(() => {
-        dispatch({type:"LOGIN",payload:rest})
-        Cookies.set("user",JSON.stringify(rest))
-        navigate('/')
+        dispatch({ type: "LOGIN", payload: rest });
+        Cookies.set("user", JSON.stringify(rest));
+        navigate("/");
       }, 2000);
     } catch (error) {
       setSuccess("");
@@ -94,12 +108,15 @@ export default function RegisterForm({setVisible}) {
   };
   const days = Array.from(new Array(getDays()), (val, index) => 1 + index);
   return (
-    <div className="blur">
-      <div className="register">
+    <div className="blur1">
+      <div className="register" ref={el}>
         <div className="register_header">
-          <i className="exit_icon" onClick={()=>{
-            setVisible(false)
-          }}></i>
+          <i
+            className="exit_icon"
+            onClick={() => {
+              setVisible(false);
+            }}
+          ></i>
           <span>Sign Up</span>
           <span>it's quick and easy</span>
         </div>
@@ -115,6 +132,7 @@ export default function RegisterForm({setVisible}) {
             bMonth,
             bDay,
             gender,
+            confirmPassword,
           }}
           onSubmit={() => {
             const currentDate = new Date();
@@ -165,6 +183,14 @@ export default function RegisterForm({setVisible}) {
                   type="password"
                   placeholder="New password"
                   name="password"
+                  onChange={handleRegisterChange}
+                />
+              </div>
+              <div className="reg_line">
+                <RegisterInput
+                  type="password"
+                  placeholder="confirm password"
+                  name="confirmPassword"
                   onChange={handleRegisterChange}
                 />
               </div>
