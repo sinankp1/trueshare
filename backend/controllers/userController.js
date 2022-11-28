@@ -3,14 +3,14 @@ const {
   validateLength,
   validateUsername,
 } = require("../helpers/validation");
-
-const User = require("../models/User");
-const Post = require("../models/Post");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const { generateToken } = require("../helpers/tokens");
-const { sendVerificationEmail } = require("../helpers/mailer");
 const mongoose = require("mongoose");
+const User = require("../models/User");
+const Post = require("../models/Post");
+
+const { sendVerificationEmail } = require("../helpers/mailer");
 exports.register = async (req, res) => {
   try {
     const {
@@ -118,6 +118,8 @@ exports.login = async (req, res) => {
     const check = await bcrypt.compare(password, user.password);
     if (!check)
       return res.status(400).json({ message: "Incorrect loign details" });
+    if (user.status !== true)
+      return res.status(400).json({ message: "Your account is suspended" });
     const token = generateToken({ id: user._id.toString() }, "7d");
     res.send({
       id: user._id,
@@ -481,7 +483,7 @@ exports.removeFromSearch = async (req, res) => {
       { _id: req.user.id },
       { $pull: { search: { user: searchUser } } }
     );
-    res.json(response)
+    res.json(response);
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }

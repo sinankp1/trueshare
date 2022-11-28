@@ -11,7 +11,7 @@ const loginInfos = {
   email: "",
   password: "",
 };
-export default function LoginForm({ setVisible, visible }) {
+export default function LoginForm({ setVisible, visible, admin }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [login, setLogin] = useState(loginInfos);
@@ -31,18 +31,33 @@ export default function LoginForm({ setVisible, visible }) {
   });
   const loginSubmit = async () => {
     try {
-      setLoading(true);
-      const { data } = await axios.post(
-        `${process.env.REACT_APP_BACKEND_URL}/login`,
-        {
-          email,
-          password,
-        }
-      );
-      const { message, ...rest } = data;
-      dispatch({ type: "LOGIN", payload: rest });
-      Cookies.set("user", JSON.stringify(rest));
-      navigate("/");
+      if (!admin) {
+        setLoading(true);
+        const { data } = await axios.post(
+          `${process.env.REACT_APP_BACKEND_URL}/login`,
+          {
+            email,
+            password,
+          }
+        );
+        const { message, ...rest } = data;
+        dispatch({ type: "LOGIN", payload: rest });
+        Cookies.set("user", JSON.stringify(rest));
+        navigate("/");
+      } else if (admin) {
+        setLoading(true);
+        const { data } = await axios.post(
+          `${process.env.REACT_APP_BACKEND_URL}/admin/adminLogin`,
+          {
+            email,
+            password,
+          }
+        );
+        const { message, ...rest } = data;
+        dispatch({ type: "ADMIN_LOGIN", payload: rest });
+        Cookies.set("admin", JSON.stringify(rest));
+        navigate("/admin");
+      }
     } catch (error) {
       setLoading(false);
       setError(error.response.data.message);
@@ -56,9 +71,13 @@ export default function LoginForm({ setVisible, visible }) {
           src="../../icons/trueshare_logo.png"
           alt=""
         />
-        <span>
-          Trueshare helps you connect and share with the people in your life.
-        </span>
+        {admin ? (
+          <b style={{fontSize:"40px",color:"#111"}}>Admin</b>
+        ) : (
+          <span>
+            Trueshare helps you connect and share with the people in your life.
+          </span>
+        )}
       </div>
       <div className="login_2">
         <div className="login_2_wrap">
@@ -107,19 +126,20 @@ export default function LoginForm({ setVisible, visible }) {
             Forgotten password?
           </Link>
           {error && <div className="error_text">{error}</div>}
-          <div className="sign_splitter"></div>
-          <button
-            className="blue_btn open_signup"
-            onClick={() => {
-              setVisible(true);
-            }}
-          >
-            Create Account
-          </button>
+          {!admin && (
+            <>
+              <div className="sign_splitter"></div>
+              <button
+                className="blue_btn open_signup"
+                onClick={() => {
+                  setVisible(true);
+                }}
+              >
+                Create Account
+              </button>
+            </>
+          )}
         </div>
-        <Link to="/" className="sign_extra">
-          <b>Create a Page</b> for a celebrity, brand or business.
-        </Link>
       </div>
     </div>
   );

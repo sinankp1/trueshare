@@ -13,6 +13,7 @@
     "formik": "^2.2.9",
     "js-cookie": "^3.0.1",
     "react": "^17.0.2",
+    "react-data-table-component": "^7.5.3",
     "react-dom": "^17.0.2",
     "react-easy-crop": "^4.6.2",
     "react-moment": "^1.1.2",
@@ -24,6 +25,7 @@
     "redux": "^4.2.0",
     "redux-devtools-extension": "^2.13.9",
     "sass": "^1.55.0",
+    "styled-components": "^5.3.6",
     "web-vitals": "^2.1.4",
     "yup": "^0.32.11"
   },
