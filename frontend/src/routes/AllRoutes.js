@@ -15,6 +15,7 @@ import { postsReducer } from "../functions/reducer";
 import { getAllPosts } from "../functions/getAllPosts";
 import CreatePostPopup from "../components/createPostPopup";
 import AdminLoggedInRoutes from "./AdminLoggedInRoutes";
+import ReportPost from "../pages/report/ReportPage";
 
 export default function AllRoutes() {
   const { user } = useSelector((state) => ({ ...state }));
@@ -58,6 +59,11 @@ export default function AllRoutes() {
           <Route
             path="/friends/:type"
             element={<Friends setVisible={setVisible} />}
+            exact
+          />
+          <Route
+            path="/reportPost/:postId"
+            element={<ReportPost />}
             exact
           />
           <Route

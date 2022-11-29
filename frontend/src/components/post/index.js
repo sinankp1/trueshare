@@ -20,6 +20,7 @@ export default function Post({ post, user }) {
   const [comments, setComments] = useState([]);
   const [count, setCount] = useState(1);
   const [checkSaved, setCheckSaved] = useState();
+
   useEffect(() => {
     setComments(post?.comments);
   }, [post]);
@@ -71,6 +72,7 @@ export default function Post({ post, user }) {
     setCount((prev) => prev + 3);
   };
   return (
+    <>
     <div className="post" ref={postRef}>
       <div className="post_header">
         <Link to={`profile/${post.user.username}`} className="post_header_left">
@@ -100,7 +102,7 @@ export default function Post({ post, user }) {
         <div
           className="post_header_right hover1"
           onClick={() => {
-            setShowMenu((prev) => !prev);
+            setShowMenu(true);
           }}
           ref={menu}
         >
@@ -284,5 +286,6 @@ export default function Post({ post, user }) {
         )}
       </div>
     </div>
+    </>
   );
 }

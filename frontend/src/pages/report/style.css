@@ -1,0 +1,113 @@
+/*----report popup----*/
+.report_popup {
+  position: fixed;
+  transform: translate(50%, -50%);
+  top: 50%;
+  right: 50%;
+  width: 500px;
+  border: none;
+  box-shadow: 0 12px 28px 0 var(--shadow-1), 0 2px 4px 0 var(--shadow-2),
+    inset 0 0 0 1px var(--shadow-inset);
+  border-radius: 5px;
+  padding: 10px;
+  background: var(--bg-primary);
+}
+.report_popup .c_header {
+  display: flex;
+  justify-content: center;
+  color: var(--color-primary);
+  font-size: 20px;
+  font-weight: 700;
+  height: 35px;
+  border-bottom: 1px solid var(--bg-third);
+  position: relative;
+}
+.report_popup .c_header .small_circle {
+  position: absolute;
+  right: -17px;
+  top: -6px;
+}
+.report_popup .c_body {
+  display: flex;
+  flex-direction: column;
+}
+.body_header {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.body_header span:first-of-type {
+  font-size: 20px;
+  font-weight: 600;
+  color: #050505;
+}
+.body_header span:last-of-type {
+  font-size: 16px;
+  color: var(--color-secondary);
+}
+.reportItem {
+  position: relative;
+  padding: 12px 6px;
+  margin: 0 -6px;
+  border-radius: 5px;
+}
+.reportItem span {
+  font-size: 17px;
+  font-weight: 500;
+  color: #050505;
+}
+.reportItem:hover {
+  background: var(--bg-third);
+}
+.lArrow {
+  position: absolute;
+  left: -5px;
+  top: -5px;
+  transform: rotate(180deg);
+  width: 36px;
+  height: 36px;
+  background: var(--bg-third);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+}
+.selectedItem {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.selectedItem span:first-of-type {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--color-primary);
+}
+.selectedItem span:last-of-type {
+  font-size: 16px;
+  color: var(--color-secondary);
+}
+.selectedItem ul {
+  list-style: none;
+  line-height: 2rem;
+  padding-left: 20px;
+}
+.selectedItem ul li::before {
+  content: "\2022"; /* Add content: \2022 is the CSS Code/unicode for a bullet */
+  color: #65676b; /* Change the color */
+  font-weight: bold; /* If you want it to be bold */
+  display: inline-block; /* Needed to add space between the bullet and the text */
+  width: 1em; /* Also needed for space (tweak if needed) */
+  margin-left: -1em; /* Also needed for space (tweak if needed) */
+}
+.selectedItem button {
+  width: 100%;
+  background: #1b74e4;
+  color: white;
+  padding: 5px 0;
+  border-radius: 5px;
+}
+.terrorism {
+  color: var(--color-primary);
+  font-weight: 600;
+  margin-top: 5rem;
+}
+/*----report popup----*/

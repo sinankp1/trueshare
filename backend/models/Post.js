@@ -39,10 +39,26 @@ const postSchema = new mongoose.Schema(
         },
       },
     ],
+    reports: [
+      {
+        report: {
+          type: String,
+          enum: ["Act of violence", "Nudity","Harrassment","Impersonation"],
+        },
+        reportBy: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "User",
+        },
+        reportedAt: {
+          type: Date,
+          default: new Date(),
+        },
+      },
+    ],
   },
   {
     timestamps: true,
   }
 );
 
-module.exports = mongoose.model("Post" , postSchema)
+module.exports = mongoose.model("Post", postSchema);

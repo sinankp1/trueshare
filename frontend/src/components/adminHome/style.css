@@ -104,14 +104,16 @@ table, tr{
   /*----confirm popup----*/
   .confirm_popup{
     position: fixed;
-    transform: translateY(-50%);
     transform: translateX(50%);
-    top: 50%;
+    top: 4px;
     right: 50%;
     width: 300px;
-    border: 1px solid var(--color-primary);
+    border: none;
+    box-shadow:  0 12px 28px 0 var(--shadow-1), 0 2px 4px 0 var(--shadow-2),
+    inset 0 0 0 1px var(--shadow-inset);
     border-radius: 5px;
     padding: 10px;
+    background: var(--bg-primary);
   }
   .confirm_popup .c_header{
     display: flex;
@@ -120,7 +122,7 @@ table, tr{
     font-size: 20px;
     font-weight: 600;
     height: 35px;
-    border-bottom:  1px solid var(--color-secondary);;
+    border-bottom:  1px solid var(--bg-third);
   }
   .confirm_popup .c_header .small_circle{
     transform: translate(19px, -7px);
@@ -132,6 +134,7 @@ table, tr{
     height: 100px;
   }
   /*----confirm popup----*/
+ 
   /*----table header filter----*/
   .users_header{
     display: flex;

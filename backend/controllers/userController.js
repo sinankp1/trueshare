@@ -488,3 +488,19 @@ exports.removeFromSearch = async (req, res) => {
     return res.status(500).json({ message: error.message });
   }
 };
+exports.reportSubmit = async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const { postId, type } = req.body;
+    const reports = {
+      report: type,
+      reportBy: userId,
+      reportedAt: new Date(),
+    };
+    const post = Post.findById(postId);
+    const response = await post.updateOne({ $push: { reports } });
+    res.json(response);
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+};

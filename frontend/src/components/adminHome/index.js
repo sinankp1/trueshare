@@ -1,7 +1,8 @@
 import "./style.css";
 import { Link, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { Home, HomeActive } from "../../svg";
+import { Home } from "../../svg";
+import { AdminHomeActive } from "../../svg/adminHomeActive";
 import Users from "./Users";
 import Posts from "./Posts";
 export default function HomeComponent({ type }) {
@@ -25,7 +26,7 @@ export default function HomeComponent({ type }) {
               }`}
             >
               <div className="small_circle">
-                {type === "home" ? <HomeActive /> : <Home color="black" />}
+                {type === "home" ? <AdminHomeActive /> : <Home color="black" />}
               </div>
               <span>Home</span>
               <div className="rArrow">
