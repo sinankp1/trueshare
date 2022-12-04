@@ -6,7 +6,6 @@ import { AdminHomeActive } from "../../svg/adminHomeActive";
 import Users from "./Users";
 import Posts from "./Posts";
 export default function HomeComponent({ type }) {
-  
   const { admin } = useSelector((state) => ({ ...state }));
   return (
     <>
@@ -64,7 +63,19 @@ export default function HomeComponent({ type }) {
           </div>
         </div>
         <div className="admin_right">
-          {type === "users" && <Users/>}
+          {type === "home" && (
+            <div className="homeWrap">
+              <div style={{position:"relative"}}>
+                <Link to="/admin/users" style={{position:"absolute",right:"5px",top:"5px",zIndex:"999",color:"blue"}}>See all users</Link>
+                <Users home />
+              </div>
+              <div style={{position:"relative"}}>
+                <Link to="/admin/posts" style={{position:"absolute",right:"5px",top:"5px",zIndex:"999",color:"blue"}}>See all posts</Link>
+                <Posts home />
+              </div>
+            </div>
+          )}
+          {type === "users" && <Users />}
           {type === "posts" && <Posts />}
         </div>
       </div>

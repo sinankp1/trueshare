@@ -1,5 +1,5 @@
 import "./style.css";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import {
   ArrowDown,
   Friends,
@@ -19,7 +19,8 @@ import { useRef, useState } from "react";
 import AllMenu from "./AllMenu";
 import useClickOutside from "../../helpers/clickOutSide";
 import UserMenu from "./userMenu";
-export default function Header({page}) {
+
+export default function Header({ page }) {
   const { user } = useSelector((user) => ({ ...user }));
   const color = "#65676b";
   const [showSearchMenu, setShowSearchMenu] = useState(false);
@@ -59,30 +60,43 @@ export default function Header({page}) {
         <SearchMenu color={color} setShowSearchMenu={setShowSearchMenu} />
       )}
       <div className="header_middle mx-auto">
-        <Link to="/" className={`middle_icon ${page ==="home" ? "active" : "hover1"}`}>
-       {
-        page === "home" ?  <HomeActive /> : <Home color={color}/>
-       }
-         
+        <Link
+          to="/"
+          className={`middle_icon ${page === "home" ? "active" : "hover1"}`}
+        >
+          {page === "home" ? <HomeActive /> : <Home color={color} />}
         </Link>
-        <Link to="/friends"  className={`middle_icon ${page ==="friends" ? "active" : "hover1"}`}>
-        {
-        page === "friends" ?  <FriendsActive /> : <Friends color={color}/>
-       }
+        <Link
+          to="/friends"
+          className={`middle_icon ${page === "friends" ? "active" : "hover1"}`}
+        >
+          {page === "friends" ? <FriendsActive /> : <Friends color={color} />}
         </Link>
         <Link to="/" className="middle_icon hover1">
           <Market color={color} />
         </Link>
       </div>
       <div className="header_right">
-        <Link to="/profile" className={`profile_link ${page === "profile" ? "active_link":"hover1"}`}>
+        <Link
+          to="/profile"
+          className={`profile_link ${
+            page === "profile" ? "active_link" : "hover1"
+          }`}
+        >
           <img src={user?.picture} alt="" />
           <span>{user?.first_name}</span>
         </Link>
-        <div className="circle_icon hover1">
+        <Link to="/messenger" className="circle_icon hover1">
           <Messenger />
-        </div>
-        <div className={showUserMenu ?"circle_icon hover1 active_header" : "circle_icon hover1"} ref={usermenu}>
+        </Link>
+        <div
+          className={
+            showUserMenu
+              ? "circle_icon hover1 active_header"
+              : "circle_icon hover1"
+          }
+          ref={usermenu}
+        >
           <div
             className="circle"
             onClick={() => {

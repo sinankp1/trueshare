@@ -78,7 +78,7 @@ export default function PostMenu({
             <MenuItem
               img="../../../icons/report.png"
               title="Report post"
-              subtitle="i'm concerned about this post"
+              subtitle="I'm concerned about this post"
             />
           </Link>
         )}

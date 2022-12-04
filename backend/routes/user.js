@@ -18,7 +18,7 @@ const {
   addToSearchHistory,
   getSearchHistory,
   removeFromSearch,
-  reportSubmit,
+  reportSubmit,getUser
 } = require("../controllers/userController");
 const { authUser } = require("../middlewares/auth");
 
@@ -43,5 +43,6 @@ router.put("/addToSearchHistory", authUser, addToSearchHistory);
 router.put("/removeFromSearch", authUser, removeFromSearch);
 router.put("/reportSubmit", authUser, reportSubmit);
 router.get("/getSearchHistory", authUser, getSearchHistory);
+router.get("/getUser/:userId", authUser, getUser);
 
 module.exports = router;

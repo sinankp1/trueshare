@@ -6,11 +6,15 @@ import SendVerification from "../../components/home/sendVerification";
 import { useEffect, useState } from "react";
 import Post from "../../components/post";
 import { useRef } from "react";
+import { getAllPosts } from "../../functions/getAllPosts";
 
-export default function Home({ posts, setVisible }) {
+export default function Home({ posts, setVisible,dispatch }) {
   const { user } = useSelector((state) => ({ ...state }));
   const middle = useRef(null);
   const [height, setHeight] = useState();
+  useEffect(()=>{
+    getAllPosts(dispatch,user)
+  },[])
   useEffect(() => {
     setHeight(middle.current.clientHeight);
   }, [posts]);

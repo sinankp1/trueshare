@@ -9,6 +9,7 @@ const { generateTokenAdmin } = require("../helpers/tokens");
 const mongoose = require("mongoose");
 const Admin = require("../models/Admin");
 const User = require("../models/User");
+const Post = require("../models/Post");
 
 exports.adminLogin = async (req, res) => {
   try {
@@ -65,6 +66,14 @@ exports.blockUser = async (req, res) => {
       "first_name last_name email username status verified gender picture"
     );
     res.json(users)
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+exports.getAllPosts = async (req, res) => {
+  try {
+    const posts = await Post.find().populate("user","first_name last_name username picture").sort({createdAt:-1})
+    res.json(posts)
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

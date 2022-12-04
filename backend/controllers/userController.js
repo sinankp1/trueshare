@@ -184,7 +184,7 @@ exports.getProfile = async (req, res) => {
     if (profile.requests.includes(user._id)) {
       friendship.requestSent = true;
     }
-    const posts = await Post.find({ user: profile._id })
+    const posts = await Post.find({ user: profile._id, removed: { $ne: true } })
       .populate("user")
       .populate(
         "comments.commentBy",
@@ -502,5 +502,15 @@ exports.reportSubmit = async (req, res) => {
     res.json(response);
   } catch (error) {
     return res.status(500).json({ message: error.message });
+  }
+};
+exports.getUser = async (req, res) => {
+  try {
+    const user = await User.findById(req.params.userId).select(
+      "first_name last_name username picture"
+    );
+    res.json(user);
+  } catch (error) {
+    res.status(500).json(error);
   }
 };

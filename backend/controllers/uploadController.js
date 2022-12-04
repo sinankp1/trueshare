@@ -32,7 +32,6 @@ exports.listImages = async (req, res) => {
     }).catch((err)=>{
       console.log(err.error.message)
     })
-
   };
 
 const uploadToCouldinary = (file, path) => {

@@ -29,3 +29,18 @@ export const blockUser = async (id,token) => {
     return error.response.data.message;
   }
 };
+export const getAllPosts = async (token) => {
+  try {
+    const { data } = await axios.get(
+      `${process.env.REACT_APP_BACKEND_URL}/admin/getAllPosts`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return {status:"ok",data:data};
+  } catch (error) {
+    return error.response.data.message;
+  }
+};

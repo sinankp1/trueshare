@@ -6,7 +6,7 @@ import { usersReducer } from "../../functions/reducer";
 import DataTable from "react-data-table-component";
 import { useState } from "react";
 
-export default function Users() {
+export default function Users({ home }) {
   const { admin } = useSelector((state) => ({ ...state }));
   const [confirmPopup, setConfirmPopup] = useState(false);
   const [blockUser, setBlockUser] = useState({});
@@ -17,11 +17,18 @@ export default function Users() {
     users: [],
     error: "",
   });
-  const filteredItems = users.filter(
-    (user) =>
-      user.username &&
-      user.username.toLowerCase().includes(filterText.toLowerCase())
-  );
+  const filteredItems = home
+    ? users
+        .filter(
+          (user) =>
+            user.username &&
+            user.username.toLowerCase().includes(filterText.toLowerCase())
+        ).slice(0, 5)
+    : users.filter(
+        (user) =>
+          user.username &&
+          user.username.toLowerCase().includes(filterText.toLowerCase())
+      );
 
   const subHeaderComponentMemo = useMemo(() => {
     const handleClear = () => {
@@ -144,7 +151,7 @@ export default function Users() {
         columns={columns}
         data={filteredItems}
         title="Users"
-        pagination
+        pagination={!home}
         paginationResetDefaultPage={resetPaginationToggle} // optionally, a hook to reset pagination to page 1
         subHeader
         subHeaderComponent={subHeaderComponentMemo}
@@ -172,46 +179,6 @@ export default function Users() {
           </div>
         </div>
       )}
-      {/* <table className="user_table">
-        <thead>
-          <tr>
-            <th>No.</th>
-            <th>Username</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Gender</th>
-            <th>Verified</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          {users &&
-            users.map((user, i) => (
-              <tr key={i}>
-                <td>{i}</td>
-                <td>{user.username}</td>
-                <td>{user.first_name}</td>
-                <td>{user.last_name}</td>
-                <td>{user.gender}</td>
-                <td>{user.verified ? "Verified" : "Not verified"}</td>
-                <td>
-                  {user.status ? (
-                    <button className="blue_btn" style={{ background: "red" }}>
-                      block
-                    </button>
-                  ) : (
-                    <button
-                      className="blue_btn"
-                      style={{ background: "green" }}
-                    >
-                      unblock
-                    </button>
-                  )}
-                </td>
-              </tr>
-            ))}
-        </tbody>
-      </table> */}
     </>
   );
 }

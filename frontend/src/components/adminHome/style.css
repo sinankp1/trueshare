@@ -21,6 +21,11 @@
     width: calc(100% - 360px);
     min-height: 100vh;
   }
+  .homeWrap{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
   .admin_left_header {
     display: flex;
     align-items: center;
@@ -155,6 +160,13 @@ table, tr{
   padding: 2px 12px !important;
   border-radius: 0 !important;
   transform: translateY(0) !important;
+}
+.removePost{
+  background: crimson;
+  color: #fff;
+  padding: 4px 7px;
+  border: none;
+  border-radius: 5px;
 }
   /*----table header filter----*/
   

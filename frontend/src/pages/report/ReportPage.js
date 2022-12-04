@@ -1,17 +1,17 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { reportSubmit } from "../../functions/user";
 import ReportItem from "./ReportItem";
 import "./style.css";
 export default function ReportPost() {
+  const navigate = useNavigate();
   const { user } = useSelector((state) => ({ ...state }));
   const { postId } = useParams();
   const [inside, setInside] = useState("");
   const reportSubmitHandler = async () => {
-    console.log(postId, inside);
     const res = await reportSubmit(postId, inside, user.token);
-    console.log(res);
+    navigate('/');
   };
   return (
     <div className="blur1">
@@ -23,7 +23,7 @@ export default function ReportPost() {
             </div>
           )}
           Report Post
-          <div className="small_circle">
+          <div className="small_circle" onClick={()=>navigate(-1)}>
             <i className="exit_icon"></i>
           </div>
         </div>

@@ -15,13 +15,13 @@ exports.getAllPost = async (req, res) => {
     const followingTmp = await User.findById(req.user.id).select("following");
     const following = followingTmp.following;
     const promises = following.map((user) => {
-      return Post.find({ user: user })
+      return Post.find({ user: user,"reports.reportBy":{$ne:req.user.id},removed:{$ne:true} })
         .populate("user", "first_name last_name username picture")
         .populate("comments.commentBy", "first_name last_name username picture")
         .sort({ createdAt: -1 });
     });
     const followingPosts = (await Promise.all(promises)).flat();
-    const userPosts = await Post.find({ user: req.user.id })
+    const userPosts = await Post.find({ user: req.user.id ,removed:{$ne:true} })
       .populate("user", "first_name last_name username picture")
       .populate("comments.commentBy", "first_name last_name username picture")
       .sort({ createdAt: -1 });
@@ -90,7 +90,7 @@ exports.savePost = async (req,res) => {
 };
 exports.deletePost=async(req,res)=>{
   try {
-    await Post.findByIdAndRemove(req.params.id)
+    await Post.findByIdAndUpdate(req.params.id,{$set:{removed:true}})
     res.json({status:"ok"})
   } catch (error) {
     return res.status(500).json({ message: error.message });

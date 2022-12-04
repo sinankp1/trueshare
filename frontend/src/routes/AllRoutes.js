@@ -10,12 +10,12 @@ import NotLoggedInRoute from "./NotLoggedInRoute";
 import AdminNotLoggedInRoute from "./AdminNotLoggedInRoute";
 import Activate from "../pages/home/activate";
 import { useSelector } from "react-redux";
-import { useEffect, useReducer, useState } from "react";
+import {  useReducer, useState } from "react";
 import { postsReducer } from "../functions/reducer";
-import { getAllPosts } from "../functions/getAllPosts";
 import CreatePostPopup from "../components/createPostPopup";
 import AdminLoggedInRoutes from "./AdminLoggedInRoutes";
 import ReportPost from "../pages/report/ReportPage";
+import Messenger from "../pages/messenger/Messenger";
 
 export default function AllRoutes() {
   const { user } = useSelector((state) => ({ ...state }));
@@ -26,11 +26,6 @@ export default function AllRoutes() {
   });
 
   const [visible, setVisible] = useState(false);
-  useEffect(() => {
-    if (user && user?.verified) {
-      getAllPosts(dispatch, user);
-    }
-  }, [user]);
   return (
     <>
       {visible && (
@@ -73,7 +68,12 @@ export default function AllRoutes() {
           />
           <Route
             path="/"
-            element={<Home posts={posts} setVisible={setVisible} />}
+            element={<Home dispatch={dispatch} posts={posts} setVisible={setVisible} />}
+            exact
+          />
+          <Route
+            path="/messenger"
+            element={<Messenger/>}
             exact
           />
           <Route path="/activate/:token" element={<Activate />} exact />
